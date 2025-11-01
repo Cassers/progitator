@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Progitator — Bots de WhatsApp y Automatización Inteligente</title>
+  <meta name="description" content="Progitator: portfolio personal y demo de bots automatizados de WhatsApp, integraciones con CRM y flujos de ventas. Agenda una demo y ve cómo convertir conversaciones en clientes." />
+  <meta name="theme-color" content="#0f172a" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://progitator.com/" />
+  <meta property="og:title" content="Progitator — Bots de WhatsApp y Automatización Inteligente" />
+  <meta property="og:description" content="Demo real de asistentes conversacionales, funnels y soporte 24/7 en WhatsApp, con integración a CRM y n8n." />
+  <meta property="og:image" content="https://progitator.com/og-cover.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Favicon placeholder -->
+  <link rel="icon" href="/favicon.ico" />
+
+  <!-- Minimal reset & utility-first styles (no external deps) -->
+  <style>
+    :root{
+      --bg: #0b1020; /* base slate/indigo */
+      --surface: #0f172a;
+      --surface-2:#131c36;
+      --primary:#8c13d3; /* user likes purple */
+      --primary-2:#b881ff;
+      --muted:#9aa4b2;
+      --ok:#22c55e;
+      --warn:#f59e0b;
+      --err:#ef4444;
+      --radius: 18px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Arial, "Apple Color Emoji","Segoe UI Emoji";background:linear-gradient(180deg,var(--bg),#0b1224 45%, #0a0f1f);color:#e5e7eb}
+    a{color:var(--primary)}
+    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+    .btn{display:inline-flex;align-items:center;gap:.6rem;padding:.9rem 1.2rem;border:1px solid transparent;border-radius:calc(var(--radius) - 6px);text-decoration:none;font-weight:600}
+    .btn-primary{background:linear-gradient(180deg,var(--primary),#5f08a2);color:white;box-shadow:var(--shadow)}
+    .btn-ghost{background:transparent;border-color:#334155;color:#e5e7eb}
+    .badge{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .6rem;border-radius:999px;background:#0b1b35;border:1px solid #26324d;color:#cbd5e1;font-size:.78rem}
+    .nav{position:sticky;top:0;z-index:40;background:rgba(11,16,32,.6);backdrop-filter: blur(10px);border-bottom:1px solid #1f2a44}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .logo{display:flex;align-items:center;gap:.7rem;font-weight:800}
+    .logo-mark{width:28px;height:28px;border-radius:8px;background:conic-gradient(from 180deg at 50% 50%, var(--primary), #6d28d9, #1d4ed8, #06b6d4, var(--primary));box-shadow:0 0 20px rgba(140,19,211,.25)}
+    .hero{padding:90px 0 50px}
+    .grid{display:grid;gap:22px}
+    @media(min-width:900px){.hero{padding:120px 0 70px}.grid-2{grid-template-columns:1.2fr .8fr}}
+    .card{background:linear-gradient(180deg,var(--surface),var(--surface-2));border:1px solid #1f2a44;border-radius:var(--radius);box-shadow:var(--shadow)}
+    .card .inner{padding:24px}
+    .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .kpi .item{padding:16px;background:#0b1b35;border:1px solid #26324d;border-radius:14px;text-align:center}
+    .h1{font-size:clamp(2rem, 3.5vw + 1rem, 3.4rem);line-height:1.1;margin:0}
+    .sub{color:#cbd5e1;max-width:62ch}
+    .spark{position:absolute;inset:-2px;border-radius:calc(var(--radius) + 2px);background: radial-gradient(600px circle at var(--x,50%) var(--y,50%), rgba(140,19,211,.2), transparent 40%);pointer-events:none}
+    .features{display:grid;grid-template-columns:repeat(1,1fr);gap:18px}
+    @media(min-width:750px){.features{grid-template-columns:repeat(3,1fr)}}
+    .feature{padding:18px;border:1px solid #26324d;border-radius:14px;background:#0b1b35}
+    .feature h4{margin:.2rem 0 .4rem}
+    .chip{font-size:.75rem;color:#cbd5e1;border:1px dashed #34415f;border-radius:999px;padding:.2rem .5rem}
+    .section{padding:70px 0}
+    .muted{color:#a8b1c4}
+    .pricing{display:grid;gap:20px}
+    @media(min-width:880px){.pricing{grid-template-columns: repeat(3,1fr)}}
+    .price-card{position:relative;overflow:hidden}
+    .price{font-weight:800;font-size:2rem}
+    .check{color:var(--ok)}
+    .footer{border-top:1px solid #1f2a44;padding:28px 0;color:#aeb6c6}
+    .list{display:grid;gap:.5rem;margin:0;padding-left:1rem}
+    .cta-bar{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:18px}
+    .pill{border-radius:999px;background:#0b1b35;border:1px solid #26324d;padding:.35rem .6rem;color:#d1d5db}
+    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
+    .floating{position:relative}
+    .floating:before{content:"";position:absolute;inset:0;border-radius:var(--radius);background:radial-gradient(800px circle at 20% -20%, rgba(140,19,211,.15), transparent 40%), radial-gradient(800px circle at 80% 120%, rgba(6,182,212,.12), transparent 40%);filter:blur(10px);z-index:-1}
+    form{display:grid;gap:12px}
+    input, textarea{width:100%;background:#0b1b35;border:1px solid #26324d;color:#e5e7eb;padding:12px 14px;border-radius:12px}
+    label{font-size:.92rem;color:#cbd5e1}
+    .small{font-size:.86rem}
+  </style>
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"Progitator",
+    "url":"https://progitator.com",
+    "logo":"https://progitator.com/logo.png",
+    "description":"Bots de WhatsApp, automatización con n8n y CRM, y demos conversacionales.",
+    "sameAs":["https://wa.me/573000000000"],
+    "contactPoint":[{"@type":"ContactPoint","contactType":"sales","email":"hola@progitator.com"}]
+  }
+  </script>
+</head>
+<body>
+  <!-- NAV -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <div class="logo"><span class="logo-mark"></span><span>Progitator</span></div>
+      <nav style="display:flex;gap:16px;align-items:center">
+        <a class="pill" href="#features">Funciones</a>
+        <a class="pill" href="#pricing">Planes</a>
+        <a class="pill" href="#contacto">Contacto</a>
+        <a class="btn btn-primary" href="https://wa.me/573000000000" target="_blank" rel="noopener">Solicitar demo</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero container">
+    <div class="grid grid-2 floating card">
+      <div class="inner">
+        <span class="badge">Ars Automata · WhatsApp</span>
+        <h1 class="h1" style="margin-top:14px">Convierte conversaciones en clientes con <span style="color:var(--primary)">bots inteligentes</span>.</h1>
+        <p class="sub" style="margin:14px 0 4px">Progitator es tu laboratorio personal para crear y demostrar bots de WhatsApp, funnels conversacionales y soporte 24/7. Integrado con n8n, CRMs y tus sistemas.</p>
+        <div class="cta-bar">
+          <a class="btn btn-primary" href="https://wa.me/573000000000" target="_blank" rel="noopener">Probar demo en WhatsApp</a>
+          <a class="btn btn-ghost" href="#video">Ver recorrido de 90s</a>
+        </div>
+        <div class="kpi" style="margin-top:22px">
+          <div class="item"><div class="muted small">Tiempo de respuesta</div><div><strong>&lt; 1s</strong></div></div>
+          <div class="item"><div class="muted small">Integraciones</div><div><strong>n8n · GHL · API</strong></div></div>
+          <div class="item"><div class="muted small">Disponibilidad</div><div><strong>24/7</strong></div></div>
+        </div>
+      </div>
+      <div class="inner" style="display:flex;align-items:center;justify-content:center">
+        <div class="card" style="width:100%;max-width:520px;position:relative">
+          <div class="spark"></div>
+          <div class="inner">
+            <div class="badge" style="margin-bottom:10px">Conversación de muestra</div>
+            <div class="mono" style="background:#060e22;border:1px solid #223055;border-radius:12px;padding:14px;line-height:1.5">
+              <div><strong>Tú:</strong> Hola, ¿qué hace el bot?</div>
+              <div><strong>Progitator:</strong> Te ayudo a calificar leads, enviar catálogos y automatizar ventas en WhatsApp. ¿Quieres una demo en vivo?</div>
+              <div><strong>Tú:</strong> Sí, ¿puede integrarse con mi CRM?</div>
+              <div><strong>Progitator:</strong> Claro. Soporto <span class="chip">n8n</span> <span class="chip">GHL</span> <span class="chip">Webhooks</span>. Puedo crear oportunidades, etiquetas y tareas automáticamente.</div>
+            </div>
+            <a class="btn btn-primary" style="margin-top:14px;width:100%;justify-content:center" href="https://wa.me/573000000000" target="_blank">Hablar por WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="section container">
+    <h2 style="margin:0 0 14px">Lo que puedes mostrar en la demo</h2>
+    <p class="muted" style="margin-top:0">Flujos reales que suelen pedir los clientes.</p>
+    <div class="features" style="margin-top:18px">
+      <div class="feature">
+        <h4>Calificación de leads (LTV-ready)</h4>
+        <p class="muted">Preguntas dinámicas, validación de email/teléfono y scoring. Envío a CRM y Google Sheets.</p>
+      </div>
+      <div class="feature">
+        <h4>Catálogo & pagos</h4>
+        <p class="muted">Muestra productos/servicios y genera enlaces de pago o facturas. Soporte para cupones.</p>
+      </div>
+      <div class="feature">
+        <h4>Atención 24/7 con fallback humano</h4>
+        <p class="muted">Respuestas inmediatas, transferencia a agente y SLA visibles.</p>
+      </div>
+      <div class="feature">
+        <h4>Integración con n8n</h4>
+        <p class="muted">Disparadores, webhooks y funciones propias. Logs centralizados.</p>
+      </div>
+      <div class="feature">
+        <h4>Embudo conversacional</h4>
+        <p class="muted">Captura → califica → agenda → cierra. Notificaciones a equipo y métricas.</p>
+      </div>
+      <div class="feature">
+        <h4>Cumplimiento y opt-in</h4>
+        <p class="muted">Plantillas aprobadas, categorías de notificación y manejo de 24h.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING / PACKS -->
+  <section id="pricing" class="section container">
+    <h2 style="margin:0 0 14px">Packs de demostración</h2>
+    <p class="muted">Empieza con un flujo de muestra y escala según tus clientes.</p>
+    <div class="pricing" style="margin-top:20px">
+      <div class="card price-card">
+        <div class="inner">
+          <h3>Demo Express</h3>
+          <div class="muted">Ideal para mostrar en reuniones</div>
+          <div class="price" style="margin:8px 0">Gratis</div>
+          <ul class="list">
+            <li>Conversación guiada de 90s</li>
+            <li>Captura de lead básica</li>
+            <li>Botón a WhatsApp</li>
+          </ul>
+          <a class="btn btn-ghost" style="margin-top:14px;width:100%;justify-content:center" href="https://wa.me/573000000000" target="_blank">Obtener</a>
+        </div>
+      </div>
+      <div class="card price-card" style="border-color:#3b2a67">
+        <div class="inner">
+          <h3>Demo Pro</h3>
+          <div class="muted">Para prospectos serios</div>
+          <div class="price" style="margin:8px 0">A convenir</div>
+          <ul class="list">
+            <li>Calificación de leads + Scoring</li>
+            <li>Integración con CRM / Sheets</li>
+            <li>Mini dashboard de métricas</li>
+          </ul>
+          <a class="btn btn-primary" style="margin-top:14px;width:100%;justify-content:center" href="https://wa.me/573000000000" target="_blank">Agendar demo</a>
+        </div>
+      </div>
+      <div class="card price-card">
+        <div class="inner">
+          <h3>POC Acelerado</h3>
+          <div class="muted">Prueba de concepto en 1-2 semanas</div>
+          <div class="price" style="margin:8px 0">Cotización</div>
+          <ul class="list">
+            <li>Embudo conversacional completo</li>
+            <li>Conexión a sistemas del cliente</li>
+            <li>Handoff a equipo comercial</li>
+          </ul>
+          <a class="btn btn-ghost" style="margin-top:14px;width:100%;justify-content:center" href="#contacto">Solicitar cotización</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO PLACEHOLDER -->
+  <section id="video" class="section container">
+    <h2 style="margin:0 0 14px">Recorrido en 90 segundos</h2>
+    <p class="muted">Explica cómo funciona tu demo (pon tu video aquí).</p>
+    <div class="card"><div class="inner">
+      <div style="aspect-ratio:16/9;background:#0b1b35;border:1px dashed #33415a;border-radius:12px;display:grid;place-items:center;color:#aeb6c6">Embed de video — YouTube/Vimeo</div>
+    </div></div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contacto" class="section container">
+    <div class="grid grid-2">
+      <div>
+        <h2 style="margin:0 0 10px">Hablemos</h2>
+        <p class="muted">Cuéntame en qué industria estás y preparo una demo a medida.</p>
+        <div style="margin-top:14px">
+          <div class="pill">Email: <span class="mono">hola@progitator.com</span></div>
+          <div class="pill">WhatsApp: <span class="mono">+57 300 000 0000</span></div>
+        </div>
+      </div>
+      <div class="card"><div class="inner">
+        <form id="form">
+          <label>Nombre<input required name="name" placeholder="Tu nombre" /></label>
+          <label>Empresa<input name="company" placeholder="Tu empresa (opcional)" /></label>
+          <label>Correo<input required type="email" name="email" placeholder="tucorreo@dominio.com" /></label>
+          <label>Mensaje<textarea name="message" rows="4" placeholder="¿Qué te gustaría automatizar?" ></textarea></label>
+          <button class="btn btn-primary" type="submit">Enviar</button>
+          <div id="msg" class="small muted"></div>
+        </form>
+      </div></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container" style="display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap">
+      <div class="muted">© <span id="y"></span> Progitator · Laboratorio personal de automatización</div>
+      <div style="display:flex;gap:12px">
+        <a class="pill" href="/privacy.html">Política de privacidad</a>
+        <a class="pill" href="#">Términos</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // fancy hover spark
+    document.addEventListener('mousemove', (e)=>{
+      document.querySelectorAll('.spark').forEach(s=>{
+        const r = s.getBoundingClientRect();
+        s.style.setProperty('--x', (e.clientX - r.left) + 'px');
+        s.style.setProperty('--y', (e.clientY - r.top) + 'px');
+      })
+    });
+
+    // simple form handler (no backend): builds mailto link
+    const f = document.getElementById('form');
+    const msg = document.getElementById('msg');
+    f.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const data = new FormData(f);
+      const subject = encodeURIComponent('Nuevo contacto desde Progitator');
+      const body = encodeURIComponent(
+        `Nombre: ${data.get('name')}\nEmpresa: ${data.get('company')||'-'}\nEmail: ${data.get('email')}\n\nMensaje:\n${data.get('message')||'-'}`
+      );
+      window.location.href = `mailto:hola@progitator.com?subject=${subject}&body=${body}`;
+      msg.textContent = 'Abriendo tu cliente de correo…';
+    });
+  </script>
+</body>
+</html>
