@@ -80,26 +80,11 @@
   </script>
   <!-- n8n Chat Widget -->
   <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
-  <div id="n8n-chat"></div>
-
   <script type="module">
-    import { createChat } from "https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js";
+    import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
     createChat({
-      webhookUrl: "",
-      target: "#n8n-chat",
-      mode: "window",                 // "window" = flotante, "fullscreen" = ocupa toda la pantalla
-      loadPreviousSession: true,
-      enableStreaming: true,          // recuerda activarlo en tu Chat Trigger
-      initialMessages: ["¡Hola! 👋 Soy el asistente de Progitator. ¿En qué puedo ayudarte hoy?"],
-      i18n: {
-        en: {
-          title: "¡Hola! 👋",
-          subtitle: "Soy tu asistente automatizado de Progitator.",
-          getStarted: "Nueva conversación",
-          inputPlaceholder: "Escribe tu mensaje…",
-        },
-      },
+      webhookUrl: 'https://primary-production-c3a9c.up.railway.app/webhook/76a93961-d4e4-480e-acd0-1f0b9b4e234e/chat'
     });
   </script>
 
