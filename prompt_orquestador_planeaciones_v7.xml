@@ -374,12 +374,21 @@
       
       <accion tipo="generacion_arrays">
         <descripcion>Para cada día, generar array de 16 strings</descripcion>
+        <calculo_fecha>
+            <instruccion>
+              Antes de generar el array, calcula la fecha. Extrae el rango de fechas del parcelador
+              para la semana correspondiente (ej: "28 ABRIL AL 02 DE MAYO"). La fecha de inicio
+              de este rango SIEMPRE corresponde al Lunes. La fecha del Miércoles se obtiene
+              sumando 2 días a la fecha del Lunes. Para talleres y evaluaciones, usa siempre la fecha del Lunes.
+            </instruccion>
+            <formato_final>"Fecha: DD/MM/YYYY"</formato_final>
+        </calculo_fecha>
         <estructura>
           <item indice="0" columna="A">Número de unidad (extraído del módulo)</item>
           <item indice="1" columna="B">Número secuencial de la clase</item>
           <item indice="2" columna="C">Tema específico del día</item>
           <item indice="3" columna="D">Número de semana</item>
-          <item indice="4" columna="E">Fecha formateada: "Fecha: DD/MM/YYYY"</item>
+          <item indice="4" columna="E">Fecha calculada y formateada</item>
           <item indice="5" columna="F">Duración en horas (consultar horario_semanal)</item>
           <item indice="6" columna="G">Indicador de desempeño (generado pedagógicamente)</item>
           <item indice="7" columna="H">Objetivo de la clase</item>
@@ -656,9 +665,12 @@
     </restriccion>
 
     <restriccion id="R5">
-      <descripcion>La columna Fecha debe estar en el formato "Fecha: DD/MM/YYYY"</descripcion>
-      <fuente>google_sheets_config/spreadsheets</fuente>
-      <validacion>Verificar formato correcto de fecha y que coincida con el dia que se va a realizar la clase, si se refiere a un taller o evaluacion usar el primer dia disponible de la semana</validacion>
+      <descripcion>La fecha debe calcularse correctamente a partir del rango semanal del parcelador.</descripcion>
+      <fuente>context/parcelador_curricular/grados/cronograma/semana/@fecha</fuente>
+      <validacion>
+        Verificar que la fecha en la columna E corresponda exactamente al Lunes o Miércoles
+        de la semana solicitada, basado en el cálculo explícito instruido en el workflow.
+      </validacion>
     </restriccion>
   </constraints>
 
